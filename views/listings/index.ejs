@@ -1,73 +1,54 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Listings</title>
-    <link rel="stylesheet" href="/style.css" />
-  </head>
-  <body>
-    <header class="site-header">
-      <div class="wrap">
-        <h1>All Listings</h1>
-      </div>
-    </header>
-    <main class="wrap">
-      <% if (allListings && allListings.length) { %>
-      <div class="grid">
-        <% for (let listing of allListings) { %>
-        <a class="linked" href="/listings/<%= listing._id %>">
-          <article class="card" aria-labelledby="title-<%= listing._id %>">
-            <div class="card-media">
-              <img
-                src="<%= (listing.image && listing.image.url) || listing.image || '/images/default.jpg' %>"
-                alt="Image of <%= listing.title %>"
-                loading="lazy"
-              />
-            </div>
-            <div class="card-body">
-              <h2 id="title-<%= listing._id %>" class="card-title">
-                <%= listing.title %>
-              </h2>
+<body>
+  <main class="wrap">
+    <% if (allListings && allListings.length) { %>
+    <div class="grid">
+      <% for (let listing of allListings) { %>
+      <a class="linked" href="/listings/<%= listing._id %>">
+        <article class="card" aria-labelledby="title-<%= listing._id %>">
+          <div class="card-media">
+            <img
+              src="<%= (listing.image && listing.image.url) || listing.image || '/images/default.jpg' %>"
+              alt="Image of <%= listing.title %>"
+              loading="lazy"
+            />
+          </div>
+          <div class="card-body">
+            <h2 id="title-<%= listing._id %>" class="card-title">
+              <%= listing.title %>
+            </h2>
 
-              <p class="card-desc"><%= listing.description %></p>
+            <p class="card-desc"><%= listing.description %></p>
 
-              <div class="card-footer">
-                <div class="meta">
-                  <div class="location"><%= listing.location %></div>
-                  <div class="country"><%= listing.country %></div>
-                </div>
-
-                <div class="price">₹<%= listing.price %></div>
+            <div class="card-footer">
+              <div class="meta">
+                <div class="location"><%= listing.location %></div>
+                <div class="country"><%= listing.country %></div>
               </div>
-              <div class="button-group">
-                <div>
-                  <form action="/listings/<%= listing._id%>/edit" method="get">
-                    <button>Edit</button>
-                  </form>
-                </div>
-                <div>
-                  <form
-                    action="/listings/<%= listing._id%>/?_method=DELETE"
-                    method="post"
-                  >
-                    <button class="danger">Delete</button>
-                  </form>
-                </div>
+
+              <div class="price">₹<%= listing.price %></div>
+            </div>
+            <div class="button-group">
+              <div>
+                <form action="/listings/<%= listing._id%>/edit" method="get">
+                  <button>Edit</button>
+                </form>
+              </div>
+              <div>
+                <form
+                  action="/listings/<%= listing._id%>/?_method=DELETE"
+                  method="post"
+                >
+                  <button class="danger">Delete</button>
+                </form>
               </div>
             </div>
-          </article></a
-        >
-        <% } %>
-      </div>
-      <% } else { %>
-      <p class="empty">No listings found.</p>
+          </div>
+        </article></a
+      >
       <% } %>
-      <div class="adding-btn">
-        <form action="/listings/new" method="get">
-          <button class="adding-btn">Create a new listing</button>
-        </form>
-      </div>
-    </main>
-  </body>
-</html>
+    </div>
+    <% } else { %>
+    <p class="empty">No listings found.</p>
+    <% } %>
+  </main>
+</body>

@@ -1,46 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title><%= details.title %> • Details</title>
-    <link rel="stylesheet" href="/style.css" />
-  </head>
-  <body>
-    <header class="site-header">
-      <div class="wrap">
-        <a href="/listings" class="back-link">← Back to Listings</a>
+<body>
+  <main class="wrap">
+    <article class="detail-card">
+      <div class="detail-media">
+        <img
+          src="<%= (details.image && details.image.url) || details.image || '/images/default.jpg' %>"
+          alt="Image of <%= details.title %>"
+        />
       </div>
-    </header>
-    <main class="wrap">
-      <article class="detail-card">
-        <div class="detail-media">
-          <img
-            src="<%= (details.image && details.image.url) || details.image || '/images/default.jpg' %>"
-            alt="Image of <%= details.title %>"
-          />
+      <div class="detail-body">
+        <h1 class="detail-title"><%= details.title %></h1>
+        <div class="detail-meta">
+          <span class="location"><%= details.location %></span> •
+          <span class="country"><%= details.country %></span>
         </div>
-        <div class="detail-body">
-          <h1 class="detail-title"><%= details.title %></h1>
-          <div class="detail-meta">
-            <span class="location"><%= details.location %></span> •
-            <span class="country"><%= details.country %></span>
-          </div>
-          <p class="detail-desc"><%= details.description %></p>
-          <div class="detail-price">₹<%= details.price %></div>
-          <div class="button-group">
-            <a href="/listings/<%= details._id %>/edit" class="button">Edit</a>
+        <p class="detail-desc"><%= details.description %></p>
+        <div class="detail-price">₹<%= details.price %></div>
+        <div class="button-group">
+          <a href="/listings/<%= details._id %>/edit" class="button">Edit</a>
 
-            <form
-              action="/listings/<%= details._id %>?_method=DELETE"
-              method="post"
-              style="display: inline"
-            >
-              <button type="submit" class="danger">Delete</button>
-            </form>
-          </div>
+          <form
+            action="/listings/<%= details._id %>?_method=DELETE"
+            method="post"
+            style="display: inline"
+          >
+            <button type="submit" class="danger">Delete</button>
+          </form>
         </div>
-      </article>
-    </main>
-  </body>
-</html>
+      </div>
+      <div class="wrap">
+        <a href="/listings" class="back-link"
+          ><button>← Back to Listings</button></a
+        >
+      </div>
+    </article>
+  </main>
+</body>

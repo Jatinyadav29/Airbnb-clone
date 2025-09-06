@@ -1,75 +1,112 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title><%= details.title %> Edit</title>
-    <link rel="stylesheet" href="/style.css" />
-  </head>
-  <body>
-    <header class="site-header">
-      <div class="wrap">
-        <a href="/listings" class="back-link">← Back to Listings</a>
+<body>
+  <main class="wrap">
+    <article class="detail-card">
+      <div class="detail-media">
+        <img
+          src="<%= (details.image && details.image.url) || details.image || '/images/default.jpg' %>"
+          alt="Image of <%= details.title %>"
+        />
       </div>
-    </header>
-    <main class="wrap">
-      <article class="detail-card">
-        <div class="detail-media">
-          <img
-            src="<%= (details.image && details.image.url) || details.image || '/images/default.jpg' %>"
-            alt="Image of <%= details.title %>"
-          />
-        </div>
-        <div class="detail-body">
-          <form
-            action="/listings/<%= details._id %>/edit?_method=PATCH"
-            method="post"
-          >
-            <h1 class="detail-title">Edit Listing</h1>
+      <div class="detail-body">
+        <form
+          action="/listings/<%= details._id %>/edit?_method=PATCH"
+          method="post"
+          class="needs-validation"
+          novalidate
+        >
+          <h1 class="detail-title">Edit Listing</h1>
 
-            <label for="title">Title</label>
+          <div class="mb-3">
+            <label for="title" class="form-label">Title</label>
             <input
               type="text"
               id="title"
               name="title"
               value="<%= details.title %>"
+              class="form-control"
+              required
             />
+            <div class="valid-feedback">Looks good!</div>
+            <div class="invalid-feedback">Please provide a title.</div>
+          </div>
 
-            <label for="location">Location</label>
+          <div class="mb-3">
+            <label for="title" class="form-label">Image URL</label>
+            <input
+              type="text"
+              id="title"
+              name="title"
+              value="<%= details.image.url %>"
+              class="form-control"
+              required
+            />
+            <div class="valid-feedback">Looks good!</div>
+            <div class="invalid-feedback">Please provide a Image URL.</div>
+          </div>
+
+          <div class="mb-3">
+            <label for="location" class="form-label">Location</label>
             <input
               type="text"
               id="location"
               name="location"
               value="<%= details.location %>"
+              class="form-control"
+              required
             />
+            <div class="valid-feedback">Location looks good!</div>
+            <div class="invalid-feedback">Please provide a location.</div>
+          </div>
 
-            <label for="country">Country</label>
+          <div class="mb-3">
+            <label for="country" class="form-label">Country</label>
             <input
               type="text"
               id="country"
               name="country"
               value="<%= details.country %>"
+              class="form-control"
+              required
             />
+            <div class="valid-feedback">Country added!</div>
+            <div class="invalid-feedback">Please provide a country.</div>
+          </div>
 
-            <label for="description">Description</label>
-            <textarea id="description" name="description">
+          <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea
+              id="description"
+              name="description"
+              class="form-control"
+              required
+            >
 <%= details.description %></textarea
             >
+            <div class="valid-feedback">Nice description!</div>
+            <div class="invalid-feedback">Please provide a description.</div>
+          </div>
 
-            <label for="price">Price</label>
+          <div class="mb-3">
+            <label for="price" class="form-label">Price</label>
             <input
               type="number"
               id="price"
               name="price"
               value="<%= details.price %>"
+              class="form-control"
+              required
+              min="1"
             />
-            <div class="button-group">
-              <button type="submit">Save</button>
-              <a href="/listings" class="button danger">Cancel</a>
-            </div>
-          </form>
-        </div>
-      </article>
-    </main>
-  </body>
-</html>
+            <div class="valid-feedback">Price looks good!</div>
+            <div class="invalid-feedback">Please enter a valid price.</div>
+          </div>
+
+          <div class="button-group">
+            <button type="submit" class="btn btn-primary">Save</button>
+            <a href="/listings" class="btn btn-danger">Cancel</a>
+          </div>
+        </form>
+      </div>
+    </article>
+  </main>
+</body>

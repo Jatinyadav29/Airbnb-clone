@@ -1,44 +1,95 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>New Listing</title>
-    <link rel="stylesheet" href="/style.css" />
-  </head>
-  <body>
-    <main class="wrap">
-      <section class="form-card">
-        <h1>Create New Listing</h1>
-        <form action="/listings/new" method="post">
-          <label for="title">Title</label>
-          <input type="text" name="listing[title]" id="title" required />
+<body>
+  <main class="wrap">
+    <section class="form-card">
+      <h1>Create New Listing</h1>
+      <form
+        action="/listings/new"
+        method="post"
+        class="needs-validation"
+        novalidate
+      >
+        <div class="mb-3">
+          <label for="title" class="form-label">Title</label>
+          <input
+            type="text"
+            name="listing[title]"
+            id="title"
+            class="form-control"
+            required
+          />
+          <div class="valid-feedback">Looks good!</div>
+          <div class="invalid-feedback">Please provide a title.</div>
+        </div>
 
-          <label for="description">Description</label>
+        <div class="mb-3">
+          <label for="description" class="form-label">Description</label>
           <textarea
             name="listing[description]"
             id="description"
+            class="form-control"
             required
           ></textarea>
+          <div class="valid-feedback">Nice description!</div>
+          <div class="invalid-feedback">Please provide a description.</div>
+        </div>
 
-          <label for="location">Location</label>
-          <input type="text" name="listing[location]" id="location" />
+        <div class="mb-3">
+          <label for="location" class="form-label">Location</label>
+          <input
+            type="text"
+            name="listing[location]"
+            id="location"
+            class="form-control"
+            required
+          />
+          <div class="valid-feedback">Location looks good!</div>
+          <div class="invalid-feedback">Please provide a location.</div>
+        </div>
 
-          <label for="country">Country</label>
-          <input type="text" name="listing[country]" id="country" />
+        <div class="mb-3">
+          <label for="country" class="form-label">Country</label>
+          <input
+            type="text"
+            name="listing[country]"
+            id="country"
+            class="form-control"
+            required
+          />
+          <div class="valid-feedback">Country added!</div>
+          <div class="invalid-feedback">Please provide a country.</div>
+        </div>
 
-          <label for="image">Image URL</label>
-          <input type="text" name="listing[image]" id="image" />
+        <div class="mb-3">
+          <label for="image" class="form-label">Image URL</label>
+          <input
+            type="url"
+            name="listing[image]"
+            id="image"
+            class="form-control"
+          />
+          <div class="valid-feedback">Valid URL!</div>
+          <div class="invalid-feedback">Please enter a valid URL.</div>
+        </div>
 
-          <label for="price">Price</label>
-          <input type="number" name="listing[price]" id="price" />
+        <div class="mb-3">
+          <label for="price" class="form-label">Price</label>
+          <input
+            type="number"
+            name="listing[price]"
+            id="price"
+            class="form-control"
+            required
+            min="1000"
+          />
+          <div class="valid-feedback">Price looks good!</div>
+          <div class="invalid-feedback">Please enter a valid price.</div>
+        </div>
 
-          <div class="button-group">
-            <button type="submit">Save</button>
-            <a href="/listings" class="button danger">Cancel</a>
-          </div>
-        </form>
-      </section>
-    </main>
-  </body>
-</html>
+        <div class="button-group">
+          <button type="submit" class="btn btn-primary">Save</button>
+          <a href="/listings" class="btn btn-danger">Cancel</a>
+        </div>
+      </form>
+    </section>
+  </main>
+</body>
