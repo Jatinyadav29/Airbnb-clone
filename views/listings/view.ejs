@@ -16,20 +16,22 @@
         <p class="detail-desc"><%= details.description %></p>
         <div class="detail-price">₹<%= details.price %></div>
         <div class="button-group">
-          <a href="/listings/<%= details._id %>/edit" class="button">Edit</a>
+          <a href="/listings/<%= details._id %>/edit"
+            ><button class="primary rounded">Edit</button></a
+          >
 
           <form
             action="/listings/<%= details._id %>?_method=DELETE"
             method="post"
             style="display: inline"
           >
-            <button type="submit" class="danger">Delete</button>
+            <button type="submit" class="danger rounded">Delete</button>
           </form>
         </div>
       </div>
-      <div class="wrap">
-        <a href="/listings" class="back-link"
-          ><button>← Back to Listings</button></a
+      <div class="flex">
+        <a href="/listings" class="back-link helpful"
+          ><button class="rounded">← Back to Listings</button></a
         >
       </div>
     </article>
