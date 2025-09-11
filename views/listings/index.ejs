@@ -5,12 +5,8 @@
       <% allListings.forEach(listing => { %>
       <div class="col-md-4">
         <article class="card custom-card h-100" role="article">
-          <!-- Image -->
-          <a
-            href="/listings/<%= listing._id %>"
-            class="linked"
-            aria-label="View <%= listing.title %>"
-          >
+          <a href="/listings/<%= listing._id %>" class="linked">
+            <!-- Image -->
             <div class="card-media">
               <img
                 src="<%= (listing.image && listing.image.url) || listing.image || '/images/default.jpg' %>"
@@ -18,49 +14,33 @@
                 loading="lazy"
               />
             </div>
-          </a>
 
-          <!-- Body -->
-          <div class="card-body d-flex flex-column">
-            <h5 class="card-title mb-2"><%= listing.title %></h5>
+            <!-- Body -->
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title mb-2"><%= listing.title %></h5>
 
-            <p class="card-desc mb-3"><%= listing.description %></p>
+              <p class="card-desc mb-3"><%= listing.description %></p>
 
-            <div class="mt-auto">
-              <div
-                class="d-flex justify-content-between align-items-center mb-3 meta-row"
-              >
-                <div class="location-title">
-                  <span class="location me-1">
-                    <i
-                      class="fa-solid fa-location-dot text-danger me-1"
-                      aria-hidden="true"
-                    ></i>
-                    <%= listing.location %>
-                  </span>
-                  <span class="country">, <%= listing.country %></span>
+              <div class="mt-auto">
+                <div class="location-card">
+                  <div class="location-icon">
+                    <i class="fa-solid fa-map-pin" aria-hidden="true"></i>
+                  </div>
+                  <p class="location-text">
+                    <%= listing.location %>, <%= listing.country %>
+                  </p>
                 </div>
-                <div class="price">₹<%= listing.price %></div>
-              </div>
 
-              <!-- Buttons -->
-              <div class="d-flex gap-2 button-group">
-                <form action="/listings/<%= listing._id %>/edit" method="get">
-                  <button type="submit" class="btn btn-sm btn-outline-primary">
-                    <i class="fa-solid fa-pen-to-square me-1"></i> Edit
-                  </button>
-                </form>
-                <form
-                  action="/listings/<%= listing._id %>/?_method=DELETE"
-                  method="post"
+                <div
+                  class="d-flex justify-content-between align-items-center mb-3 meta-row"
                 >
-                  <button type="submit" class="btn btn-sm btn-outline-danger">
-                    <i class="fa-solid fa-trash me-1"></i> Delete
-                  </button>
-                </form>
+                  <div class="price-card">
+                    <p class="price-amount">₹<%= listing.price %></p>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
+          </a>
         </article>
       </div>
       <% }) %>
@@ -70,130 +50,3 @@
   <p class="empty">No listings found.</p>
   <% } %>
 </main>
-<!-- 
-<style>
-  :root {
-    --card-radius: 14px;
-    --card-img-h: 220px; /* tweak this if you want taller/shorter thumbnails */
-    --container-max: 1180px;
-  }
-
-  /* Wrapper / container niceties */
-  .wrap {
-    padding: 0 0;
-  }
-  .container {
-    max-width: var(--container-max);
-  }
-
-  /* Card base */
-  .custom-card {
-    border: 0;
-    border-radius: var(--card-radius);
-    background: #ffffff;
-    overflow: hidden;
-    transition: transform 0.28s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.28s;
-    display: flex;
-    flex-direction: column;
-  }
-
-  /* Hover / focus */
-  .custom-card:hover,
-  .custom-card:focus-within {
-    transform: translateY(-6px);
-    box-shadow: 0 18px 40px rgba(16, 24, 40, 0.1);
-  }
-
-  /* Image area */
-  .card-media {
-    height: var(--card-img-h);
-    overflow: hidden;
-    background: #f6f6f6;
-  }
-  .card-media img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    -webkit-user-drag: none;
-  }
-
-  /* Body */
-  .card-body {
-    padding: 1.1rem 1.25rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.375rem;
-  }
-
-  .card-title {
-    font-weight: 600;
-    margin: 0;
-    font-size: 1.02rem;
-    color: #111827;
-  }
-
-  /* Description: clamp to 3 lines so cards stay similar height */
-  .card-desc {
-    margin: 0;
-    color: #6b7280;
-    line-height: 1.45;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    font-size: 0.95rem;
-  }
-
-  /* Meta row */
-  .meta-row {
-    font-size: 0.9rem;
-    color: #6b7280;
-  }
-  .meta-row .location {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.35rem;
-  }
-  .price {
-    color: #0d6efd;
-    font-weight: 700;
-  }
-
-  /* Buttons */
-  .button-group {
-    margin-top: 0.35rem;
-  }
-  .button-group .btn {
-    border-radius: 8px;
-    padding: 0.35rem 0.6rem;
-    font-size: 0.9rem;
-  }
-
-  /* Link reset */
-  .linked {
-    display: block;
-    text-decoration: none;
-    color: inherit;
-  }
-
-  /* Empty state */
-  .empty {
-    color: #6b7280;
-    text-align: center;
-    padding: 2rem 0;
-  }
-
-  /* Responsive tweaks */
-  @media (max-width: 991px) {
-    :root {
-      --card-img-h: 200px;
-    }
-  }
-  @media (max-width: 575px) {
-    :root {
-      --card-img-h: 160px;
-    }
-  }
-</style> -->
