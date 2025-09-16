@@ -5,6 +5,28 @@ const path = require("path");
 const mongoose = require("mongoose");
 const expressLayouts = require("express-ejs-layouts");
 const ExpressError = require("./utils/expressError.js");
+const session = require("express-session");
+const flash = require("connect-flash");
+
+const sessionOptions = {
+  secret: "mysecretsessioncode",
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+    expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
+    maxAge: 7 * 24 * 60 * 60 * 1000,
+    httpOnly: true,
+  },
+};
+
+app.use(session(sessionOptions));
+app.use(flash());
+
+app.use((req, res, next) => {
+  res.locals.success = req.flash("success");
+  res.locals.error = req.flash("error");
+  next();
+});
 
 const listings = require("./routes/listing.js");
 const reviews = require("./routes/review.js");
@@ -56,7 +78,7 @@ app.use((err, req, res, next) => {
   res.status(statusCode).render("includes/error.ejs", { err });
 });
 
-// error Handeling
+// error handling
 app.use((err, req, res, next) => {
   let { statusCode, message } = err;
   res.status(statusCode).send(message);
