@@ -5,6 +5,7 @@ const ExpressError = require("../utils/expressError.js");
 const { reviewSchema } = require("../schema.js");
 const Review = require("../models/reviews.js");
 const Listing = require("../models/listing.js");
+const { isLoggedIn } = require("../middleware.js");
 
 //Validate review Middleware
 const validateReview = (req, res, next) => {
@@ -20,6 +21,7 @@ const validateReview = (req, res, next) => {
 //Reviews
 router.post(
   "/",
+  isLoggedIn,
   validateReview,
   wrapAsync(async (req, res) => {
     let listing = await Listing.findById(req.params.id);
@@ -37,6 +39,7 @@ router.post(
 //delete reviews
 router.delete(
   "/:reviewId",
+  isLoggedIn,
   wrapAsync(async (req, res) => {
     let { id, reviewId } = req.params;
 

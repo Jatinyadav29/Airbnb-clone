@@ -4,6 +4,7 @@ const wrapAsync = require("../utils/wrapAsync.js");
 const ExpressError = require("../utils/expressError.js");
 const { listingSchema } = require("../schema.js");
 const Listing = require("../models/listing.js");
+const { isLoggedIn } = require("../middleware.js");
 
 // Validate Listing Middleware
 const validateListing = (req, res, next) => {
@@ -26,7 +27,7 @@ router.get(
 );
 
 // Creating new Listings
-router.get("/new", (req, res) => {
+router.get("/new", isLoggedIn, (req, res) => {
   res.render("listings/new.ejs");
 });
 
@@ -58,6 +59,7 @@ router.get(
 // Edit Listing
 router.get(
   "/:id/edit",
+  isLoggedIn,
   wrapAsync(async (req, res) => {
     let { id } = req.params;
     let details = await Listing.findById(id);
@@ -86,7 +88,7 @@ router.patch(
 );
 
 // delete listing
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", isLoggedIn, async (req, res) => {
   let { id } = req.params;
   let deleteListings = await Listing.findByIdAndDelete(id);
   req.flash("success", "Listing Deleted");

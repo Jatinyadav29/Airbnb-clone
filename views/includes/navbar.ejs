@@ -26,6 +26,14 @@
         </a>
         <a class="nav-link fw-semibold px-3" href="#"> Contact Us </a>
       </div>
+      <div class="navbar-nav ms-auto px-5">
+        <% if(!currUser) { %>
+        <a class="nav-link fw-semibold px-3" href="/signup"> Sign Up </a>
+        <a class="nav-link fw-semibold px-3" href="/login"> Login </a>
+        <% } %> <% if(currUser) { %>
+        <a class="nav-link fw-semibold px-3" href="/logout">Logout</a>
+        <% } %>
+      </div>
     </div>
   </div>
 </nav>
