@@ -14,7 +14,11 @@
           <span class="country"> <%= details.country %> </span>
         </div>
         <p class="detail-desc"><%= details.description %></p>
+        <p class="detail-desc">
+          Created by - <i><%= details.owner.username %></i>
+        </p>
         <div class="detail-price">₹<%= details.price %></div>
+        <% if(currUser && currUser._id.equals(details.owner._id)) {%>
         <div class="button-group">
           <a href="/listings/<%= details._id %>/edit"
             ><button class="primary rounded">Edit</button></a
@@ -27,6 +31,7 @@
             <button type="submit" class="danger rounded">Delete</button>
           </form>
         </div>
+        <% } %>
       </div>
       <div class="flex mb-4">
         <a href="/listings" class="back-link helpful"
@@ -34,6 +39,7 @@
         >
       </div>
     </article>
+    <% if(currUser) { %>
     <div class="review-form-wrapper">
       <h4 class="review-form-title">Leave a Review</h4>
       <form
@@ -87,6 +93,7 @@
         </div>
       </form>
     </div>
+    <% } %>
     <hr />
     <h4 class="text-center my-4">All Reviews</h4>
     <div class="container">
@@ -95,7 +102,14 @@
         <div class="col-md-5 col-sm-10 mb-4 d-flex align-items-stretch">
           <div class="card custom-card w-100 shadow-md">
             <div class="card-body p-5">
-              <h5 class="card-title">User</h5>
+              <div>
+                <p>
+                  Created by -
+                  <span class="card-title"
+                    ><i><%= reviews.author.username %></i></span
+                  >
+                </p>
+              </div>
               <p class="card-text"><%= reviews.comment %></p>
               <p class="card-text text-warning">⭐ <%= reviews.rating %></p>
             </div>
