@@ -9,7 +9,7 @@
             <!-- Image -->
             <div class="card-media">
               <img
-                src="<%= (listing.image && listing.image.url) || listing.image || '/images/default.jpg' %>"
+                src="<%= listing.image.url %>"
                 alt="Image of <%= listing.title %>"
                 loading="lazy"
               />
