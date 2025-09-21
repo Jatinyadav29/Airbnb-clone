@@ -46,23 +46,31 @@ module.exports.viewListing = async (req, res) => {
 module.exports.renderEditListing = async (req, res) => {
   let { id } = req.params;
   let details = await Listing.findById(id);
-  res.render("listings/edit.ejs", { details });
+  if (!details) {
+    req.flash("error", "Listing does not exist");
+    return res.redirect("/listings");
+  }
+
+  let originalImageUrl = details.image.url;
+  originalImageUrl = originalImageUrl.replace("/upload", "/upload/w_250");
+  res.render("listings/edit.ejs", { details, originalImageUrl });
 };
 
 // Handle update of an existing listing
 module.exports.updateEditListing = async (req, res) => {
   let { id } = req.params;
-
-  // If no new image is provided, retain the existing one
-  if (!req.body.listing.image) {
-    delete req.body.listing.image;
-  }
-
-  await Listing.findByIdAndUpdate(
+  let listing = await Listing.findByIdAndUpdate(
     id,
     { ...req.body.listing },
     { runValidators: true, new: true }
   );
+
+  if (typeof req.file !== "undefined") {
+    let url = req.file.path;
+    let filename = req.file.filename;
+    listing.image = { url, filename };
+    await listing.save();
+  }
 
   req.flash("success", "Listing Updated");
   res.redirect(`/listings/${id}`);

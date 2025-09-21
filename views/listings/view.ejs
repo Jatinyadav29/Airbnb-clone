@@ -12,8 +12,7 @@
         </div>
         <p class="detail-desc"><%= details.description %></p>
         <p class="detail-desc">
-          Created by -
-          <i><%= details.owner ? details.owner.username : "Unknown" %></i>
+          Created by - <i><%= details.owner.username %></i>
         </p>
         <div class="detail-price">₹<%= details.price %></div>
         <% if(currUser && currUser._id.equals(details.owner._id)) {%>

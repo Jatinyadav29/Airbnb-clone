@@ -15,8 +15,8 @@ router
   .get(isLoggedIn, listingController.renderNewForm)
   .post(
     isLoggedIn,
-    validateListing,
     upload.single("listing[image]"),
+    validateListing,
     wrapAsync(listingController.createNewListing)
   );
 
@@ -31,6 +31,7 @@ router
   .patch(
     isLoggedIn,
     isOwner,
+    upload.single("listing[image]"),
     validateListing,
     wrapAsync(listingController.updateEditListing)
   );
