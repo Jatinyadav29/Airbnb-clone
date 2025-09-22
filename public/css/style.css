@@ -786,3 +786,9 @@ footer .social-links a:hover {
   color: #065f46; /* deep green for text */
   font-weight: 500;
 }
+
+#map {
+  width: 100%;
+  height: 400px; /* ya jitni chahiye */
+  border-radius: 10px;
+}

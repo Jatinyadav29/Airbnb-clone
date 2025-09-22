@@ -60,7 +60,7 @@ app.use(express.static(path.join(__dirname, "public")));
 // connecting to mongoose
 main()
   .then(() => {
-    console.log("connected");
+    console.log("Connected to DB");
   })
   .catch((err) => {
     console.log(err);

@@ -1,127 +1,135 @@
-<body>
-  <main class="wrap">
-    <article class="detail-card">
-      <div class="detail-media">
-        <img src="<%=details.image.url%>" alt="Image of <%= details.title %>" />
+<script>
+   let mapToken = "<%= process.env.MAP_TOKEN %>";
+  let coordinates = <%- JSON.stringify(details.geometry.coordinates) %>;
+</script>
+<main class="wrap">
+  <article class="detail-card">
+    <div class="detail-media">
+      <img src="<%=details.image.url%>" alt="Image of <%= details.title %>" />
+    </div>
+    <div class="detail-body">
+      <h1 class="detail-title"><%= details.title %></h1>
+      <div class="detail-meta">
+        <span class="location"> <%= details.location %> </span> •
+        <span class="country"> <%= details.country %> </span>
       </div>
-      <div class="detail-body">
-        <h1 class="detail-title"><%= details.title %></h1>
-        <div class="detail-meta">
-          <span class="location"> <%= details.location %> </span> •
-          <span class="country"> <%= details.country %> </span>
-        </div>
-        <p class="detail-desc"><%= details.description %></p>
-        <p class="detail-desc">
-          Created by - <i><%= details.owner.username %></i>
-        </p>
-        <div class="detail-price">₹<%= details.price %></div>
-        <% if(currUser && currUser._id.equals(details.owner._id)) {%>
-        <div class="button-group">
-          <a href="/listings/<%= details._id %>/edit"
-            ><button class="primary rounded">Edit</button></a
-          >
-          <form
-            action="/listings/<%= details._id %>?_method=DELETE"
-            method="post"
-            style="display: inline"
-          >
-            <button type="submit" class="danger rounded">Delete</button>
-          </form>
-        </div>
-        <% } %>
-      </div>
-      <div class="flex mb-4">
-        <a href="/listings" class="back-link helpful"
-          ><button class="rounded">← Back to Listings</button></a
+      <p class="detail-desc"><%= details.description %></p>
+      <p class="detail-desc">
+        Created by - <i><%= details.owner.username %></i>
+      </p>
+      <div class="detail-price">₹<%= details.price %></div>
+      <% if(currUser && currUser._id.equals(details.owner._id)) {%>
+      <div class="button-group">
+        <a href="/listings/<%= details._id %>/edit"
+          ><button class="primary rounded">Edit</button></a
         >
+        <form
+          action="/listings/<%= details._id %>?_method=DELETE"
+          method="post"
+          style="display: inline"
+        >
+          <button type="submit" class="danger rounded">Delete</button>
+        </form>
       </div>
-    </article>
-    <% if(currUser) { %>
-    <div class="review-form-wrapper">
-      <h4 class="review-form-title">Leave a Review</h4>
-      <form
-        action="/listings/<%= details.id %>/reviews"
-        method="post"
-        class="custom-review-form needs-validation"
-        novalidate
+      <% } %>
+    </div>
+    <div class="flex mb-4">
+      <a href="/listings" class="back-link helpful"
+        ><button class="rounded">← Back to Listings</button></a
       >
-        <!-- Rating -->
-        <div class="review-form-group">
-          <label class="review-label">Rating</label>
-          <div class="rating">
-            <input value="5" name="review[rating]" id="star5" type="radio" />
-            <label for="star5" title="5 stars"></label>
-
-            <input value="4" name="review[rating]" id="star4" type="radio" />
-            <label for="star4" title="4 stars"></label>
-
-            <input
-              value="3"
-              name="review[rating]"
-              id="star3"
-              type="radio"
-              checked
-            />
-            <label for="star3" title="3 stars"></label>
-
-            <input value="2" name="review[rating]" id="star2" type="radio" />
-            <label for="star2" title="2 stars"></label>
-
-            <input value="1" name="review[rating]" id="star1" type="radio" />
-            <label for="star1" title="1 star"></label>
-          </div>
-        </div>
-        <!-- Comment -->
-        <div class="review-form-group">
-          <label for="comment" class="review-label">Comment</label>
-          <textarea
-            name="review[comment]"
-            id="comment"
-            class="review-textarea"
-            rows="5"
-            required
-          ></textarea>
-          <div class="valid-feedback">Looks good!</div>
-          <div class="invalid-feedback">Please provide a comment.</div>
-        </div>
-
-        <div class="review-actions">
-          <button class="review-submit">Post Review</button>
-        </div>
-      </form>
     </div>
-    <% } %>
-    <hr />
-    <h4 class="text-center my-4">All Reviews</h4>
-    <div class="container">
-      <div class="row justify-content-center">
-        <% for(reviews of details.review) { %>
-        <div class="col-md-5 col-sm-10 mb-4 d-flex align-items-stretch">
-          <div class="card custom-card w-100 shadow-md">
-            <div class="card-body p-5">
-              <div>
-                <p>
-                  Created by -
-                  <span class="card-title"
-                    ><i><%= reviews.author.username %></i></span
-                  >
-                </p>
-              </div>
-              <p class="card-text"><%= reviews.comment %></p>
-              <p class="card-text text-warning">⭐ <%= reviews.rating %></p>
-            </div>
-            <div class="card-footer bg-white border-0 text-center mb-4">
-              <form
-                action="/listings/<%= details._id %>/reviews/<%= reviews._id %>?_method=DELETE"
-                method="post"
-              >
-                <button class="btn btn-danger btn-sm">Delete</button>
-              </form>
-            </div>
-          </div>
+  </article>
+  <% if(currUser) { %>
+  <div class="review-form-wrapper">
+    <h4 class="review-form-title">Leave a Review</h4>
+    <form
+      action="/listings/<%= details.id %>/reviews"
+      method="post"
+      class="custom-review-form needs-validation"
+      novalidate
+    >
+      <!-- Rating -->
+      <div class="review-form-group">
+        <label class="review-label">Rating</label>
+        <div class="rating">
+          <input value="5" name="review[rating]" id="star5" type="radio" />
+          <label for="star5" title="5 stars"></label>
+
+          <input value="4" name="review[rating]" id="star4" type="radio" />
+          <label for="star4" title="4 stars"></label>
+
+          <input
+            value="3"
+            name="review[rating]"
+            id="star3"
+            type="radio"
+            checked
+          />
+          <label for="star3" title="3 stars"></label>
+
+          <input value="2" name="review[rating]" id="star2" type="radio" />
+          <label for="star2" title="2 stars"></label>
+
+          <input value="1" name="review[rating]" id="star1" type="radio" />
+          <label for="star1" title="1 star"></label>
         </div>
-        <% } %>
       </div>
+      <!-- Comment -->
+      <div class="review-form-group">
+        <label for="comment" class="review-label">Comment</label>
+        <textarea
+          name="review[comment]"
+          id="comment"
+          class="review-textarea"
+          rows="5"
+          required
+        ></textarea>
+        <div class="valid-feedback">Looks good!</div>
+        <div class="invalid-feedback">Please provide a comment.</div>
+      </div>
+
+      <div class="review-actions">
+        <button class="review-submit">Post Review</button>
+      </div>
+    </form>
+  </div>
+  <hr />
+  <% } %> <% if(details.review && details.review.length > 0) { %>
+  <div class="container">
+    <h4 class="text-center my-4">All Reviews</h4>
+    <div class="row justify-content-center">
+      <% for(reviews of details.review) { %>
+      <div class="col-md-5 col-sm-10 mb-4 d-flex align-items-stretch">
+        <div class="card custom-card w-100 shadow-md">
+          <div class="card-body p-5">
+            <div>
+              <p>
+                Created by -
+                <span class="card-title"
+                  ><i><%= reviews.author.username %></i></span
+                >
+              </p>
+            </div>
+            <p class="card-text"><%= reviews.comment %></p>
+            <p class="card-text text-warning">⭐ <%= reviews.rating %></p>
+          </div>
+          <div class="card-footer bg-white border-0 text-center mb-4">
+            <form
+              action="/listings/<%= details._id %>/reviews/<%= reviews._id %>?_method=DELETE"
+              method="post"
+            >
+              <button class="btn btn-danger btn-sm">Delete</button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <% } %>
     </div>
-  </main>
-</body>
+  </div>
+  <% } %>
+  <div class="col-8 offset-2 my-3">
+    <h3>Where you'll be</h3>
+    <div id="map"></div>
+  </div>
+</main>
+<script src="/js/map.js"></script>
