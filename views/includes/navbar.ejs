@@ -11,25 +11,46 @@
     >
       <span class="navbar-toggler-icon"></span>
     </button>
-
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav ms-auto px-5">
         <a
-          class="nav-link fw-semibold active px-3"
+          class="nav-link fw-semibold px-3"
           aria-current="page"
           href="/listings"
         >
-          Home
+          Explore
         </a>
         <a class="nav-link fw-semibold px-3" href="/listings/new">
-          Add New Listings
+          Airbnb your home
         </a>
         <a class="nav-link fw-semibold px-3" href="#"> Contact Us </a>
       </div>
+      <div class="navbar-nav">
+        <form
+          class="d-flex"
+          role="search"
+          action="/listings/search"
+          method="get"
+        >
+          <input
+            class="form-control me-2 rounded-pill px-5"
+            type="search"
+            name="q"
+            placeholder="Search Destination"
+          />
+          <button
+            class="btn-search rounded-pill flex align-items-center px-4"
+            type="submit"
+          >
+            <i class="fa-solid fa-magnifying-glass px-1"></i>
+            Search
+          </button>
+        </form>
+      </div>
       <div class="navbar-nav ms-auto px-5">
         <% if(!currUser) { %>
-        <a class="nav-link fw-semibold px-3" href="/signup"> Sign Up </a>
-        <a class="nav-link fw-semibold px-3" href="/login"> Login </a>
+        <a class="nav-link fw-semibold px-3" href="/signup"> <b>Sign Up</b> </a>
+        <a class="nav-link fw-semibold px-3" href="/login"> <b>Login</b></a>
         <% } %> <% if(currUser) { %>
         <a class="nav-link fw-semibold px-3" href="/logout">Logout</a>
         <% } %>

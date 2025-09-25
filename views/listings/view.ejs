@@ -17,6 +17,7 @@
       <p class="detail-desc">
         Created by - <i><%= details.owner.username %></i>
       </p>
+      <div class="detail-desc">Category - <%= details.category %></div>
       <div class="detail-price">₹<%= details.price %></div>
       <% if(currUser && currUser._id.equals(details.owner._id)) {%>
       <div class="button-group">

@@ -3,15 +3,49 @@ const mbxGeocoding = require("@mapbox/mapbox-sdk/services/geocoding");
 const mapToken = process.env.MAP_TOKEN;
 const geocodingClient = mbxGeocoding({ accessToken: mapToken });
 
-// Display all listings (Index route)
-module.exports.index = async (req, res) => {
-  let allListings = await Listing.find({});
-  res.render("listings/index.ejs", { allListings });
-};
-
 // Render form to create a new listing
 module.exports.renderNewForm = (req, res) => {
   res.render("listings/new.ejs");
+};
+
+//Render category selected listing
+module.exports.renderCategoryListing = async (req, res) => {
+  const { category } = req.query;
+  let allListings;
+
+  if (category) {
+    allListings = await Listing.find({ category: category });
+  } else {
+    allListings = await Listing.find({});
+  }
+
+  res.render("listings/index.ejs", { allListings, category });
+};
+
+//Search route
+// Search listings by location or country
+module.exports.searchListings = async (req, res) => {
+  try {
+    let query = req.query.q?.trim();
+    if (!query) {
+      req.flash("error", "Please enter something to search");
+      return res.redirect("/listings");
+    }
+
+    // Case-insensitive + partial match
+    let allListings = await Listing.find({
+      $or: [
+        { location: { $regex: query, $options: "i" } },
+        { country: { $regex: query, $options: "i" } },
+      ],
+    });
+
+    res.render("listings/index.ejs", { allListings, category: null });
+  } catch (err) {
+    console.error(err);
+    req.flash("error", "Something went wrong with search");
+    res.redirect("/listings");
+  }
 };
 
 // Handle creation of a new listing

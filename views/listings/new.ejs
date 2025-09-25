@@ -87,6 +87,28 @@
           <div class="invalid-feedback">Please enter a valid price.</div>
         </div>
 
+        <div class="mb-3">
+          <label for="category" class="form-label">Category</label>
+          <select
+            name="listing[category]"
+            id="category"
+            class="form-control"
+            required
+          >
+            <option value="">-- Select a Category --</option>
+            <option value="mountains">Mountains</option>
+            <option value="artic">Arctic</option>
+            <option value="Swimming">Swimming</option>
+            <option value="Iconic">Iconic</option>
+            <option value="farms">Farms</option>
+            <option value="castle">Castle</option>
+            <option value="camping">Camping</option>
+            <option value="vineyard">Vineyard</option>
+          </select>
+          <div class="valid-feedback">Category selected!</div>
+          <div class="invalid-feedback">Please select a category.</div>
+        </div>
+
         <div class="button-group">
           <button type="submit" class="btn btn-primary">Save</button>
           <a href="/listings" class="btn btn-danger">Cancel</a>

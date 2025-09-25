@@ -2,104 +2,77 @@
   <main class="wrap">
     <article class="detail-card">
       <div class="detail-body">
-        <form
-          action="/listings/<%= details._id %>/edit?_method=PATCH"
-          method="post"
-          class="needs-validation"
-          novalidate
-          enctype="multipart/form-data"
-        >
+        <form action="/listings/<%= details._id %>/edit?_method=PATCH" method="post" class="needs-validation" novalidate
+          enctype="multipart/form-data">
           <h1 class="detail-title mb-3">Edit Listing</h1>
 
           <div class="mb-3">
             <label for="title" class="form-label">Title</label>
-            <input
-              type="text"
-              id="title"
-              name="listing[title]"
-              value="<%= details.title %>"
-              class="form-control"
-              required
-            />
+            <input type="text" id="title" name="listing[title]" value="<%= details.title %>" class="form-control"
+              required />
             <div class="valid-feedback">Looks good!</div>
             <div class="invalid-feedback">Please provide a title.</div>
           </div>
 
           <div class="mb-3">
             <p>Original Listing Image</p>
-            <img
-              class="border rounded"
-              src="<%= originalImageUrl %>"
-              alt="Image of <%= details.title %>"
-            />
+            <img class="border rounded" src="<%= originalImageUrl %>" alt="Image of <%= details.title %>" />
           </div>
 
           <div class="mb-3">
             <label for="image" class="form-label">Upload new Image</label>
-            <input
-              type="file"
-              id="image"
-              name="listing[image]"
-              class="form-control"
-            />
+            <input type="file" id="image" name="listing[image]" class="form-control" />
             <div class="valid-feedback">Looks good!</div>
           </div>
 
           <div class="mb-3">
             <label for="location" class="form-label">Location</label>
-            <input
-              type="text"
-              id="location"
-              name="listing[location]"
-              value="<%= details.location %>"
-              class="form-control"
-              required
-            />
+            <input type="text" id="location" name="listing[location]" value="<%= details.location %>"
+              class="form-control" required />
             <div class="valid-feedback">Location looks good!</div>
             <div class="invalid-feedback">Please provide a location.</div>
           </div>
 
           <div class="mb-3">
             <label for="country" class="form-label">Country</label>
-            <input
-              type="text"
-              id="country"
-              name="listing[country]"
-              value="<%= details.country %>"
-              class="form-control"
-              required
-            />
+            <input type="text" id="country" name="listing[country]" value="<%= details.country %>" class="form-control"
+              required />
             <div class="valid-feedback">Country added!</div>
             <div class="invalid-feedback">Please provide a country.</div>
           </div>
 
           <div class="mb-3">
             <label for="description" class="form-label">Description</label>
-            <textarea
-              id="description"
-              name="listing[description]"
-              class="form-control"
-              required
-            >
-<%= details.description %></textarea
-            >
+            <textarea id="description" name="listing[description]" class="form-control" required>
+<%= details.description %></textarea>
             <div class="valid-feedback">Nice description!</div>
             <div class="invalid-feedback">Please provide a description.</div>
           </div>
 
           <div class="mb-3">
             <label for="price" class="form-label">Price</label>
-            <input
-              type="number"
-              id="price"
-              name="listing[price]"
-              value="<%= details.price %>"
-              class="form-control"
-              required
-              min="1"
-            />
+            <input type="number" id="price" name="listing[price]" value="<%= details.price %>" class="form-control"
+              required min="1" />
             <div class="valid-feedback">Price looks good!</div>
             <div class="invalid-feedback">Please enter a valid price.</div>
+          </div>
+
+          <div class="mb-3">
+            <label for="category" class="form-label">Category</label>
+            <!-- prettier-ignore -->
+            <select id="category" name="listing[category]" class="form-control" required>
+              <option disabled selected>Select a category</option>
+              <option value="mountains" <%=details.category==="mountains" ? "selected" : "" %>>Mountains</option>
+              <option value="artic" <%=details.category==="artic" ? "selected" : "" %>>Arctic</option>
+              <option value="Swimming" <%=details.category==="Swimming" ? "selected" : "" %>>Swimming</option>
+              <option value="Iconic" <%=details.category==="Iconic" ? "selected" : "" %>>Iconic</option>
+              <option value="farms" <%=details.category==="farms" ? "selected" : "" %>>Farms</option>
+              <option value="castle" <%=details.category==="castle" ? "selected" : "" %>>Castle</option>
+              <option value="camping" <%=details.category==="camping" ? "selected" : "" %>>Camping</option>
+              <option value="vineyard" <%=details.category==="vineyard" ? "selected" : "" %>>Vineyard</option>
+            </select>
+            <div class="valid-feedback">Category looks good!</div>
+            <div class="invalid-feedback">Please select a category.</div>
           </div>
 
           <div class="button-group">
